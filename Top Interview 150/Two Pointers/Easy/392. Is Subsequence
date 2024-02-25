@@ -1,0 +1,16 @@
+class Solution {
+    public boolean isSubsequence(String s, String t) {
+        int sPointer = 0, tPointer = 0;
+        int sLength = s.length(), tLength = t.length();
+        if(sLength == 0)
+            return true;
+        while(tPointer < tLength) {
+            if(t.charAt(tPointer) == s.charAt(sPointer))
+                sPointer++;
+            tPointer++;
+            if(sPointer == sLength)
+                return true;
+        }
+        return false;
+    }
+}
