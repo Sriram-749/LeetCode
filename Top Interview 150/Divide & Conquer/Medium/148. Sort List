@@ -1,0 +1,57 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode sortList(ListNode head) {
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        ListNode arr = head;
+        int low = 0, high = 0;
+        while(head != null) {
+            list.add(head.val);
+            high++;
+            head = head.next;
+        }
+        head = arr;
+        high--;
+        mergeSort(list, low, high);
+        for(int i = 0; i <= high; i++) {
+            head.val = list.get(i);
+            head = head.next;
+        }
+        return arr;
+    }
+    public void mergeSort(ArrayList<Integer> list, int low, int high) {
+        int mid = (low + high) / 2;
+        if(low >= high)
+            return;
+        mergeSort(list, low, mid);
+        mergeSort(list, mid + 1, high);
+        merge(list, low, mid, high);
+    }
+    public void merge(ArrayList<Integer> list, int low, int mid, int high) {
+        int[] L = new int[mid - low + 1];
+        int[] R = new int[high - mid];
+        for(int i = 0; i < L.length; i++)
+            L[i] = list.get(low + i);
+        for(int i = 0; i < R.length; i++)
+            R[i] = list.get(mid + 1 + i);
+        int k = low, i = 0, j = 0;
+        while(i < L.length &&  j < R.length) {
+            if(L[i] <= R[j])
+                list.set(k++, L[i++]);
+            else
+                list.set(k++, R[j++]);
+        }
+        while(i < L.length)
+            list.set(k++, L[i++]);
+        while(j < R.length)
+            list.set(k++, R[j++]);
+    }
+}
