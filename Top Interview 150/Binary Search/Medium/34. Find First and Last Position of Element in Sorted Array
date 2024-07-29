@@ -1,0 +1,28 @@
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int index = binarySearch(nums, 0, nums.length - 1, target);
+        int left = index, right = index;
+        int[] arr = {left, right};
+        while(left != -1) {
+            arr[0] = left;
+            left = binarySearch(nums, 0, arr[0] - 1, target);
+        }
+        while(right != -1) {
+            arr[1] = right;
+            right = binarySearch(nums, arr[1] + 1, nums.length - 1, target);
+        }
+        return arr;
+    }
+    public int binarySearch(int[] nums, int low, int high, int target) {
+        while(low <= high) {
+            int mid = (low + high) / 2;
+            if(nums[mid] == target)
+                return mid;
+            else if(target > nums[mid])
+                low = mid + 1;
+            else
+                high = mid - 1;
+        }
+        return -1;
+    }
+}
