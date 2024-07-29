@@ -1,0 +1,17 @@
+class Solution {
+    public int findPeakElement(int[] nums) {
+        return getPeakIndex(nums, 0, nums.length - 1);
+    }
+    public int getPeakIndex(int[] arr, int low, int high) {
+        if(low <= high) {
+            int mid = (low + high) / 2;
+            if(arr[mid] >= arr[Math.max(0, mid - 1)] && arr[mid] >= arr[Math.min(arr.length - 1, mid + 1)])
+                return mid;
+            if(arr[Math.min(arr.length - 1, mid + 1)] > arr[mid])
+                return getPeakIndex(arr, mid + 1, high);
+            if(arr[Math.max(0, mid - 1)] > arr[mid])
+                return getPeakIndex(arr, low, mid - 1);
+        }
+        return low;
+    }
+}
