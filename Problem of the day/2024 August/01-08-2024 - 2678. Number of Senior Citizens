@@ -1,0 +1,12 @@
+class Solution {
+    public int countSeniors(String[] details) {
+        int count = 0;
+        for(int i = 0; i < details.length; i++) {
+            int first = details[i].charAt(11) - '0';
+            int last = details[i].charAt(12) - '0';
+            int age = first * 10 + last;
+            if(age > 60) count++;
+        }
+        return count;
+    }
+}
